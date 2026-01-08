@@ -37,6 +37,7 @@ int main() {
 	
 	printf("TESTING W\n");
 	assert(complexcmp(W(8,5), -0.809107f, -0.587785f));
+	assert(complexcmp(W(71,20), -0.951057f, -0.309107f));
 	
 	return 0;
 }
