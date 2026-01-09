@@ -1,5 +1,5 @@
        IDENTIFICATION DIVISION.
-       PROGRAM-ID.   DECTOBIN.
+       PROGRAM-ID.    DECTOBIN.
 
        ENVIRONMENT DIVISION.
        INPUT-OUTPUT SECTION.
@@ -16,20 +16,17 @@
        
        FD DECIMAL-FILE.
        01 DECIMAL-RECORD.
-              05 XDEC       PIC 9(3)V9(3).
-              05 FILLER     PIC X.
-              05 YDEC       PIC 9(3)V9(3).
+              05 DECVAL       PIC 9(3)V9(3).
 
        FD BINARY-FILE.
        01 BINARY-RECORD.
-              05 XBIN             COMP-1.
-              05 YBIN             COMP-1.
+              05 BINVAL       COMP-1.
 
        WORKING-STORAGE SECTION.
        01 WS-DECIMAL-CHECK-KEY     PIC X(2).
        01 WS-BINARY-CHECK-KEY      PIC X(2).
 
-       01 WS-EOF-FLAG       PIC X.
+       01 WS-EOF-FLAG         PIC X.
 
        PROCEDURE DIVISION.
 
@@ -52,9 +49,7 @@
                AT END
                 SET WS-EOF-FLAG TO 'Y'
                NOT AT END
-                DISPLAY "X " XDEC " Y " YDEC
-                MOVE XDEC TO XBIN
-                MOVE YDEC TO YBIN
-                DISPLAY "X " XBIN " Y " YBIN
+                MOVE DECVAL TO BINVAL
+                DISPLAY "DECVAL " DECVAL " BINVAL " BINVAL
                 WRITE BINARY-RECORD
               END-READ.
