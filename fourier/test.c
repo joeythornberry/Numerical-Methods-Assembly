@@ -9,6 +9,7 @@ typedef struct Complex {
 extern float sine(float x);
 extern float cosine(float x);
 extern Complex W(int exponent, int N);
+extern int ft();
 
 int floatcmp(float a, float b) {
 	//printf("Comparing %f and %f\n", a, b);
