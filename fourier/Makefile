@@ -9,10 +9,13 @@ test:
 	rm *.out
 
 ft:
+	touch out.bin
 	rm out.bin
-	as -g -o ft.o ft.s
+	as -g -o ft.o ft.s W.s sine.s cosine.s
 	ld -o ft.out ft.o
-	strace ./ft.out
+	./ft.out
 	rm *.o
 	hexdump in.bin
 	hexdump out.bin
+	./BINTODEC
+	cat out.dec

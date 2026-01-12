@@ -31,6 +31,30 @@ _start:
 	mov 	x8, #63
 	svc 	#0
 
+	mov 	x19, #1		/* j */
+	fsub 	s19, s19, s19 	/* accumulator for a given j */
+	fsub 	s20, s20, s20
+	
+        stp 	x29, x30, [sp, -32]!
+loop:	
+	mov 	x0, x19
+	mov 	x1, #4
+	
+	bl	W
+	
+	fadd 	s19, s19, s0
+	fadd	s20, s20, s1
+
+	mov	x0, #1
+	sub	x19, x19, x0
+	cmp 	x19, #0
+	b.lt	loop	
+
+	ldp 	x29, x30, [sp], 32
+	
+	str	s19, [sp]
+	str 	s20, [sp, #4]
+
 	mov	x0, x10 	/* WRITE to output */
 	mov 	x1, sp
 	mov 	x2, #16

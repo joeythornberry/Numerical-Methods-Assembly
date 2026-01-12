@@ -7,10 +7,10 @@ cosine:
 	fsub	s2, s2, s2	/* n starts at 0 */
 	fmov	s3, #1.0	/* sign */
 	fmov 	s4, #1.0  	/* nth term of sequence */
-loop:
+loopcosine:
 	fmov	s5, #10.0
 	fcmp 	s5, s2
-	b.lt 	finish
+	b.lt 	finishcosine
 	
 	fmov 	s5, #1.0
 	fadd	s2, s2, s5	/* increment n */
@@ -25,9 +25,9 @@ loop:
 	fmul 	s3, s3, s5 	/* invert sign */
 	fmadd 	s1, s4, s3, s1	/* sign nth term */
 	
-	b	 loop
+	b	 loopcosine
 
-finish: 
+finishcosine: 
 	fmov 	s0, s1 		/* return nth partial */
 	
 	ldp 	x29, x30, [sp], 16
