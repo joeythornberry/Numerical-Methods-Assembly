@@ -1,0 +1,54 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID.    BINTODEC.
+
+       ENVIRONMENT DIVISION.
+       INPUT-OUTPUT SECTION.
+       FILE-CONTROL.
+              SELECT DECIMAL-FILE ASSIGN TO "out.dec"
+                     FILE STATUS IS WS-DECIMAL-CHECK-KEY
+                     ORGANIZATION IS LINE SEQUENTIAL.
+              SELECT BINARY-FILE  ASSIGN TO "out.bin"
+                     FILE STATUS IS WS-BINARY-CHECK-KEY
+                     ORGANIZATION IS SEQUENTIAL.
+
+       DATA DIVISION.
+       FILE SECTION.
+       
+       FD DECIMAL-FILE.
+       01 DECIMAL-RECORD.
+              05 DECVAL       PIC 9(3)V9(3).
+
+       FD BINARY-FILE.
+       01 BINARY-RECORD.
+              05 BINVAL       COMP-1.
+
+       WORKING-STORAGE SECTION.
+       01 WS-DECIMAL-CHECK-KEY     PIC X(2).
+       01 WS-BINARY-CHECK-KEY      PIC X(2).
+
+       01 WS-EOF-FLAG         PIC X.
+
+       PROCEDURE DIVISION.
+
+       OPEN OUTPUT DECIMAL-FILE.
+       OPEN INPUT  BINARY-FILE.
+       IF WS-DECIMAL-CHECK-KEY NOT="00"
+              DISPLAY "BINARY FILE STATUS " WS-DECIMAL-CHECK-KEY       
+       END-IF
+       IF WS-BINARY-CHECK-KEY NOT="00"
+              DISPLAY "BINARY FILE STATUS " WS-DECIMAL-CHECK-KEY       
+       END-IF
+
+       PERFORM 0001-READ-WRITE-LOOP UNTIL WS-EOF-FLAG = 'Y'
+
+       CLOSE BINARY-FILE.
+       CLOSE DECIMAL-FILE.
+
+       0001-READ-WRITE-LOOP.
+              READ BINARY-FILE INTO BINARY-RECORD
+               AT END
+                SET WS-EOF-FLAG TO 'Y'
+               NOT AT END
+                MOVE BINVAL TO DECVAL
+                WRITE DECIMAL-RECORD
+              END-READ.
