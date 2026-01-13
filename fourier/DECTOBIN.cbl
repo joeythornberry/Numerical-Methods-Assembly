@@ -47,7 +47,7 @@
        0001-READ-WRITE-LOOP.
               READ DECIMAL-FILE INTO DECIMAL-RECORD
                AT END
-                SET WS-EOF-FLAG TO 'Y'
+                MOVE 'Y' TO WS-EOF-FLAG
                NOT AT END
                 MOVE DECVAL TO BINVAL
                 DISPLAY "DECVAL " DECVAL " BINVAL " BINVAL

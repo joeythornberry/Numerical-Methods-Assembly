@@ -47,7 +47,7 @@
        0001-READ-WRITE-LOOP.
               READ BINARY-FILE INTO BINARY-RECORD
                AT END
-                SET WS-EOF-FLAG TO 'Y'
+                MOVE 'Y' TO WS-EOF-FLAG
                NOT AT END
                 MOVE BINVAL TO DECVAL
                 WRITE DECIMAL-RECORD
